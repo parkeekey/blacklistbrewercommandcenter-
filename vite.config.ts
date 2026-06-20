@@ -65,6 +65,7 @@ function dataPlugin(): Plugin {
 
 export default defineConfig({
   plugins: [react(), dataPlugin()],
+  base: '/blacklistbrewercommandcenter-/',
   server: {
     port: 3000,
   },
