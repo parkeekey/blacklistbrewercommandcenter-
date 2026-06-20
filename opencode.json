@@ -1,6 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "headroom/big-pickle",
   "permission": {
     "doom_loop": "allow"
   },
