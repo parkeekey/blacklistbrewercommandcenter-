@@ -835,7 +835,6 @@ export default function FinanceView() {
           addFundingSource={addFundingSource}
           updateFundingSource={updateFundingSource}
           removeFundingSource={removeFundingSource}
-          updatePurchaseOrder={updatePurchaseOrder}
         />
       )}
     </div>

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import type { DayRun, PurchaseOrder, InventoryTransaction, FundingSource, PurchaseOrderItem } from '../types'
+import type { DayRun, PurchaseOrder, InventoryTransaction, FundingSource } from '../types'
 import { PURCHASE_CATEGORIES } from '../types'
 import { formatCurrency, generateId } from '../utils'
 
@@ -22,17 +22,16 @@ interface Props {
   addFundingSource: (source: FundingSource) => void
   updateFundingSource: (sourceId: string, updates: Partial<FundingSource>) => void
   removeFundingSource: (sourceId: string) => void
-  updatePurchaseOrder: (orderId: string, updates: Partial<PurchaseOrder>) => void
 }
 
-export default function RecordsView({ runs, purchaseOrders, transactions, totalSales, fundingSources, addFundingSource, updateFundingSource, removeFundingSource, updatePurchaseOrder }: Props) {
+export default function RecordsView({ runs, purchaseOrders, transactions, totalSales, fundingSources, addFundingSource, updateFundingSource, removeFundingSource }: Props) {
   const [selectedSourceId, setSelectedSourceId] = useState<string | null>(null)
   const [showAddSource, setShowAddSource] = useState(false)
   const [editSourceId, setEditSourceId] = useState<string | null>(null)
   const [formName, setFormName] = useState('')
   const [formAmount, setFormAmount] = useState(0)
   const [formCategories, setFormCategories] = useState<string[]>([])
-  const [assignItem, setAssignItem] = useState<{ date: string; desc: string; amount: number; orderId: string; itemIndex: number } | null>(null)
+  const [assignItem, setAssignItem] = useState<{ date: string; desc: string; amount: number; orderId?: string; itemIndex?: number } | null>(null)
 
   const allEntries = useMemo(() => {
     const list: LedgerEntry[] = []
