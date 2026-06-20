@@ -3,7 +3,7 @@
   "permission": {
     "doom_loop": "allow"
   },
-  "plugin": ["opencode-chrome-annotation@latest"],
+  "plugin": ["opencode-chrome-annotation@latest", "opencode-ponytail"],
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
