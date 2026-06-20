@@ -25,7 +25,10 @@
       },
       "models": {
         "big-pickle": {
-          "name": "Big Pickle (via Headroom)"
+          "name": "Big Pickle (via Headroom)",
+          "options": {
+            "reasoningEffort": "none"
+          }
         }
       }
     }
