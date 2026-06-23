@@ -317,28 +317,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const testMode = currentKey === TEST_KEY
 
   useEffect(() => {
-    async function init() {
-      const isTest = currentKey === TEST_KEY
-
-      let data: AppData | null = null
-      if (!isTest) {
-        try {
-          const res = await fetch('/api/data')
-          if (res.ok) data = await res.json()
-        } catch {}
-      }
-
+    function init() {
+      let data = loadData(currentKey)
       if (data?.runs) data.runs = migrateRuns(data.runs)
-
-      if (!data) data = loadData(currentKey)
 
       const hasData = data.menu.length > 0 || data.beans.length > 0 || data.runs.length > 0
       if (!hasData) {
         data = generateSeedData()
         try { localStorage.setItem(currentKey, JSON.stringify(data)) } catch {}
-        if (!isTest) {
-          try { await fetch('/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }) } catch {}
-        }
       }
 
       dispatch({ type: 'LOAD_DATA', payload: data })
@@ -349,9 +335,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (state === EMPTY_DATA) return
     try { localStorage.setItem(currentKey, JSON.stringify(state)) } catch {}
-    if (currentKey !== TEST_KEY) {
-      fetch('/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(state) }).catch(() => {})
-    }
   }, [state, currentKey])
 
   function setTestMode(enabled: boolean) {
